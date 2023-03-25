@@ -1,0 +1,25 @@
+.container {
+    max-width: 960px;
+  }
+  body{
+    background-image: url("/assets/reg.png");
+    border-radius: 5px;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }  
+
+  h2,label{
+    color:black;
+  }
+
+  img {
+    filter: brightness(200%);
+  }
+
+  form{
+    align-items: center;
+  }
+
+  button:hover{
+    color:white;
+  } 

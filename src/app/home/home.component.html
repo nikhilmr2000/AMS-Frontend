@@ -1,0 +1,197 @@
+<app-navbar></app-navbar>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.108.0">
+    <title>AMS</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/sign-in/">
+
+    
+
+    
+
+<link href="/docs/5.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
+    <!-- Favicons -->
+<link rel="apple-touch-icon" href="/docs/5.3/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="/docs/5.3/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/docs/5.3/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="/docs/5.3/assets/img/favicons/manifest.json">
+<link rel="mask-icon" href="/docs/5.3/assets/img/favicons/safari-pinned-tab.svg" color="#712cf9">
+<link rel="icon" href="/docs/5.3/assets/img/favicons/favicon.ico">
+<meta name="theme-color" content="#712cf9">
+
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+      .b-example-divider {
+        height: 3rem;
+        background-color: rgba(0, 0, 0, .1);
+        border: solid rgba(0, 0, 0, .15);
+        border-width: 1px 0;
+        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+      }
+
+      .b-example-vr {
+        flex-shrink: 0;
+        width: 1.5rem;
+        height: 100vh;
+      }
+
+      .bi {
+        vertical-align: -.125em;
+        fill: currentColor;
+      }
+
+      .nav-scroller {
+        position: relative;
+        z-index: 2;
+        height: 2.75rem;
+        overflow-y: hidden;
+      }
+
+      .nav-scroller .nav {
+        display: flex;
+        flex-wrap: nowrap;
+        padding-bottom: 1rem;
+        margin-top: -1px;
+        overflow-x: auto;
+        text-align: center;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+    </style>
+
+  </head>
+  <body class="text-center" *ngIf="!signedIn">
+    
+<main class="form-signin w-100 m-auto">
+    <br/>
+  
+    <img class="mb-4" src="/assets/amg.png" alt="" width="140" height="70">
+    <h1 class="h3 mb-3 fw-normal">Enter Credentials</h1>
+
+    <div class="form-floating">
+      <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" [(ngModel)]="this.login.username">
+      <label for="floatingInput">Username</label>
+    </div>
+    <br/>
+    <div class="form-floating">
+      <input type="password" class="form-control" id="floatingPassword" placeholder="Password" [(ngModel)]="this.login.secretcode">
+      <label for="floatingPassword">Secret Code</label>
+    </div>
+    <div class="col">
+      <a href="#" class="link-info">Forgot Secret Code ?? </a>
+    </div>
+    <br/>
+    <br/>
+    <button class="w-100 btn btn-lg btn btn-info" type="submit" (click)="getAuthDetails() ">Enter in</button>
+    <br/>
+    <p class="mt-5 mb-3 text-muted">A | M | S © 2023</p>
+  
+</main>
+  
+<br/><br/>
+</body></html>
+
+
+<body id="bd" *ngIf="signedIn">
+<div class="container col-xxl-8 px-4 py-5"  id="bg">
+  <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+    <div class="col-10 col-sm-8 col-lg-6">
+      <img src="assets/amg.png" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700" height="500" loading="lazy">
+    </div>
+    <div class="col-lg-6">
+      <h1 class="display-5 fw-bold lh-1 mb-3" id="headval">The Ultimate all-in-one Web-App for Attendance System</h1>
+      <p class="lead"><b>Attendance Management System ( A | M | S )</b> is generally a all-in-one app which provides all the services for attendance management. <b> A | M | S </b>
+        also helps in tracking the details of the teachers, professors and other faculties  and also helps in managing the details of the students and faculties working within the organization.
+      </p>
+      <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+        <button type="button" class="btn btn-info btn-lg px-4 me-md-2" id="dash" (click)="dashredirect()">Dashboard</button>
+        <button type="button" class="btn btn-outline-secondary btn-lg px-4">Organization</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</body>
+
+<br/>
+
+<div class="back" *ngIf="signedIn">
+<div class="container px-4 py-5" id="hanging-icons">
+  <h2 class="pb-2 border-bottom">Aspects of Attendance Management System ( A | M | S ) </h2>
+  <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+    <div class="col d-flex align-items-start">
+      <div class="icon-square text-bg-light d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3">
+        <svg class="bi" width="1em" height="1em"><image href="assets/dashboard.png" height="25" width="25"/></svg>
+      </div>
+      <div>
+        <h3 class="fs-2">Dashboard</h3>
+        <p>Dashboard helps to navigate the details of the students, faculties and other staffs working in the organisation. Dashboard helps admin to have control and access to the <b>A | M | S</b> throughout.
+        Dashboard helps in knowing the changes happening in an organisation.
+        </p>
+        <a href="/dashboard" class="btn btn-info" id="dash">
+          Dashboard
+        </a>
+      </div>
+    </div>
+    <div class="col d-flex align-items-start">
+      <div class="icon-square text-bg-light d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3">
+        <svg class="bi" width="1em" height="1em"><image href="assets/organisation.png" height="25" width="25"/></svg>
+      </div>
+      <div>
+        <h3 class="fs-2">Organisation</h3>
+        <p>Organisation helps to find the attendance records of the students in the organisation. <b>A | M | S</b> not only helps to find the record of the students but also helps to know the details of the faculties and other staffs within the organisation.</p>
+        <a href="#" class="btn btn-info" id="dash">
+          Organisation
+        </a>
+      </div>
+    </div>
+    <div class="col d-flex align-items-start">
+      <div class="icon-square text-bg-light d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3">
+        <svg class="bi" width="1em" height="1em"><image href="assets/profile.png" height="25" width="25"/></svg>
+      </div>
+      <div>
+        <h3 class="fs-2">Profile Status</h3>
+        <p>Profile Status is a feature in <b>A | M | S</b> which helps to know the current status of the students or faculties working in the organisation. This helps the faculties or the students to update their details in the organisation.</p>
+        <a href="/profilestatus" class="btn btn-info" id="dash">
+          Profile Status
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+<div class="container">
+    <footer class="py-3 my-4">
+      <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+        <li class="nav-item"><a href="/" class="nav-link px-2 text-muted">Home</a></li>
+        <li class="nav-item"><a href="/dashboard" class="nav-link px-2 text-muted" *ngIf="signedIn">Dashboard</a></li>
+        <li class="nav-item"><a href="/register" class="nav-link px-2 text-muted" *ngIf="!signedIn">Register</a></li>
+        <li class="nav-item"><a href="/about" class="nav-link px-2 text-muted">About</a></li>
+        <li class="nav-item"><a href="/" class="nav-link px-2 text-muted" (click)="logout()" *ngIf="signedIn">Logout</a></li>
+      </ul>
+      <p class="text-center text-muted">A | M | S © 2023 </p>
+    </footer>
+  </div>

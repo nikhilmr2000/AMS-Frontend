@@ -1,0 +1,109 @@
+
+  .status2{
+    background-image: url("/assets/profile3.jpg");
+    border-radius: 5px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+  }  
+
+  .status3{
+    background-image: url("/assets/plant.jpg");
+    border-radius: 5px;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  h2,label{
+    color:black;
+  }
+
+  #amg {
+    filter: brightness(200%);
+  }
+
+  form{
+    align-items: center;
+  }
+
+  button:hover{
+    color:white;
+  } 
+
+  .prof{
+    font-size:16px;
+  }
+
+  #profile{
+    border-radius: 50%;
+    display: inline-block;
+    border:1px solid black;
+    height: 125px;
+    width: 125px;
+  }
+
+  #profilescreen{
+   // border:1px solid black;
+    border-radius: 7px;
+    background:linear-gradient(rgb(221, 241, 248),rgb(148, 223, 252))
+  }
+
+  #profilescreen1{
+    // border:1px solid black;
+     border-radius: 7px;
+     background:linear-gradient(rgb(224, 241, 228),rgb(148, 252, 177))
+   }
+
+  .status1{
+    background:linear-gradient(rgb(207, 207, 207),white)
+  }
+
+  .gradient-custom {
+    /* fallback for old browsers */
+    background: #f6d365;
+    
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right bottom, rgb(250, 249, 248), rgb(144, 215, 248));
+    
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right bottom, rgb(137, 212, 237), rgb(137, 238, 186))
+    }
+
+    #active{
+      border:1px solid green;
+      border-radius:20px;
+      background-color: green;
+    }
+
+    #danger{
+      border:1px solid rgb(221, 8, 43);
+      border-radius:20px;
+      background-color: rgb(221, 8, 43);
+    }
+
+    .tab{
+      // border:1px solid black;
+      border-radius: 10px;
+    }
+
+    #ratebody{
+      border-radius: 10px;
+      color: white;
+    }
+    #cardrate{
+      background-color: rgb(8, 8, 8);
+      border-color:rgb(148, 223, 252);
+      border:4px solid rgb(148, 223, 252);
+      border-radius:12px;
+    }
+
+    #cardrate1{
+      background-color: rgb(10, 10, 10);
+      border-color:rgb(148, 252, 177);
+      border:4px solid rgb(148, 252, 177);
+      border-radius:12px;
+    }
+
+    .card-title{
+      color:white;
+    }

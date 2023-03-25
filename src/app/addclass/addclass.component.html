@@ -1,0 +1,68 @@
+<app-navbar></app-navbar>
+<br/>
+<!-- Body -->
+<div class="container" >  
+  <main>
+
+    <div class="py-5 text-center">
+      <img class="d-block mx-auto mb-4"  id="amg" src="/assets/amg.png" alt="" width="140" height="70">
+      <h2>Add Class</h2>
+    </div>
+
+    <div class="col-md-5">
+      <label for="country" class="form-label">Standard</label>
+      <select class="form-select" id="country" required="" >
+        <option value="none">Select a Standard</option>
+       <option *ngFor="let standard of standardList" [value]="standard">{{standard}}</option>
+      </select>
+    </div>
+
+    <br/>
+    
+    <div class="col-md-5">
+      <label for="country" class="form-label">Section</label>
+      <select class="form-select" id="country" required="" >
+        <option value="none">Select a Section</option>
+       <option *ngFor="let section of sectionList" [value]="section">{{section}}</option>
+      </select>
+    </div>
+
+    <br/>
+
+    <div class="col-md-5">
+      <label for="country" class="form-label">Select a Class Teacher</label>
+      <select class="form-select" id="country" required="" >
+        <option>Select a Class Teacher</option>
+        <optgroup [label]="teacher.name" *ngFor="let teacher of teacherList">
+          <option *ngFor="let teacher of teacherList" [value]="teacher.name">{{teacher.subject}}</option>
+        </optgroup>
+      </select>
+    </div>
+
+
+    
+
+    <!-- <div class="row g-3" >
+      <div class="col-sm-6">
+        <label for="firstName" class="form-label">Teacher </label>
+        <input type="text" class="form-control" id="firstName" placeholder="Name" [value]="teacherprofile.name" required="" [(ngModel)]="teacherprofile.name">
+        <div class="invalid-feedback">
+          Teacher Name is required.
+        </div>
+      </div> -->
+
+</main>
+</div>
+<br/>
+<div class="container">
+    <footer class="py-3 my-4">
+      <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+        <li class="nav-item"><a href="/" class="nav-link px-2 text-muted">Home</a></li>
+        <li class="nav-item"><a href="/dashboard" class="nav-link px-2 text-muted" >Dashboard</a></li>
+        <li class="nav-item"><a href="/updateclass" class="nav-link px-2 text-muted" >Update Class</a></li>
+        <li class="nav-item"><a href="/about" class="nav-link px-2 text-muted">About</a></li>
+        <li class="nav-item"><a href="/" class="nav-link px-2 text-muted" (click)="logout()">Logout</a></li>
+      </ul>
+      <p class="text-center text-muted">A | M | S © 2023 </p>
+    </footer>
+  </div>

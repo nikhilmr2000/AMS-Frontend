@@ -1,0 +1,660 @@
+<app-navbar></app-navbar>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.108.0">
+    <title>AMS</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/checkout/">
+
+    
+
+    
+
+<link href="/docs/5.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
+    <!-- Favicons -->
+<link rel="apple-touch-icon" href="/docs/5.3/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="/docs/5.3/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/docs/5.3/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="/docs/5.3/assets/img/favicons/manifest.json">
+<link rel="mask-icon" href="/docs/5.3/assets/img/favicons/safari-pinned-tab.svg" color="#712cf9">
+<link rel="icon" href="/docs/5.3/assets/img/favicons/favicon.ico">
+<meta name="theme-color" content="#712cf9">
+
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+      .b-example-divider {
+        height: 3rem;
+        background-color: rgba(0, 0, 0, .1);
+        border: solid rgba(0, 0, 0, .15);
+        border-width: 1px 0;
+        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+      }
+
+      .b-example-vr {
+        flex-shrink: 0;
+        width: 1.5rem;
+        height: 100vh;
+      }
+
+      .bi {
+        vertical-align: -.125em;
+        fill: currentColor;
+      }
+
+      .nav-scroller {
+        position: relative;
+        z-index: 2;
+        height: 2.75rem;
+        overflow-y: hidden;
+      }
+
+      .nav-scroller .nav {
+        display: flex;
+        flex-wrap: nowrap;
+        padding-bottom: 1rem;
+        margin-top: -1px;
+        overflow-x: auto;
+        text-align: center;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+    </style>
+
+
+  </head>
+  <div class="container">
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group me-2" >
+          <button type="button" class="btn btn-sm btn-outline-secondary prof" (click)="status(1)" id="check">  Check Profile Status  </button>
+          <button type="button" class="btn btn-sm btn-outline-secondary prof" (click)="status(2)" id="student">  Add Student Profile  </button>
+          <button type="button" class="btn btn-sm btn-outline-secondary prof" (click)="status(3)" id="teacher">  Add Teacher Profile  </button>
+        </div>
+      </div>
+  </div>
+  <br/>
+
+  <body class="bg-light status1" *ngIf="status1">
+    <!-- This is the area to create Body for the Check Profile Status URL -->
+    <div class="container">
+        <br/>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox1 stu" value="option1" [checked]="student" (change)="onStudent($event)">
+            <label class="form-check-label" for="inlineCheckbox1">Search By Student Profile</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox2 tea" value="option2" (change)="onTeacher($event)" [checked]="teach">
+            <label class="form-check-label" for="inlineCheckbox2">Search By Teacher Profile</label>
+          </div>
+          <br/><br/>
+
+
+        <div class="input-group mb-3" *ngIf="student">
+            <select class="form-select" class="input-group-text"  id="inputGroup-sizing-default" [(ngModel)]="studentname"> 
+                <option value="none" selected>Search By Student Profile Attribute</option>
+                <option value="name">Search By Name</option>
+                <option value="rollnumber">Search By Roll No</option>
+                <option value="standard">Search By Standard</option>
+              </select>
+            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" [(ngModel)]="names" (input)="onStudentProfile()">
+            <button class="btn btn-info" (click)="onStudentProfile()">Search</button>
+          </div>
+
+          <div class="input-group mb-3" *ngIf="teach">
+            <select class="form-select" class="input-group-text"  id="inputGroup-sizing-default" [(ngModel)]="teachernames"> 
+                <option value="" selected>Search By Teacher Profile Attribute</option>
+                <option value="teachername">Search By Teacher Name</option>
+                <option value="subject">Search By Teacher Subject</option>
+                <option value="experience">Search By Experience</option>
+              </select>
+            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" [(ngModel)]="teachname" (input)="teacherdataPost()">
+            <button class="btn btn-success" (click)="teacherdataPost()">Search</button>
+          </div>   
+          
+          
+          <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white" style="width: 380px; margin:auto" *ngIf="student" >
+            <div class="list-group list-group-flush border-bottom scrollarea">
+              <a  class="list-group-item list-group-item-action  py-3 lh-sm" aria-current="true" *ngFor="let profile of nameList" (click)="clickedProfile(profile)">
+                <div class="d-flex w-100 align-items-center justify-content-between">
+                  <strong class="mb-1">{{profile.name}}</strong>
+                  <small>{{profile.gender}}</small>
+                </div>
+                <div class="col-10 mb-1 small">Roll Number : {{profile.roll_no}}</div>
+                <div class="col-10 mb-1 small">Standard : {{profile.standard}}  Section : {{profile.section}}</div>
+              </a>
+            </div>
+          </div>
+
+          <!-- Teacher -->
+          <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white" style="width: 380px; margin:auto" *ngIf="teach" >
+            <div class="list-group list-group-flush border-bottom scrollarea">
+              <a  class="list-group-item list-group-item-action  py-3 lh-sm" aria-current="true" *ngFor="let teacher of teacherdata" (click)="clickedTeacher(teacher)">
+                <div class="d-flex w-100 align-items-center justify-content-between">
+                  <strong class="mb-1">{{teacher.name}}</strong>
+                  <small>{{teacher.gender}}</small>
+                </div>
+                <div class="col-10 mb-1 small">Subject : {{teacher.branch}}</div>
+                <div class="col-10 mb-1 small">Experience : {{teacher.experience}}</div>
+              </a>
+            </div>
+          </div>
+        
+          <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white" style="width: 380px; margin:auto" *ngIf="badname && student" >
+            <div class="list-group list-group-flush border-bottom scrollarea">
+              <a  class="list-group-item list-group-item-action  py-3 lh-sm" aria-current="true" >
+                <div class="d-flex w-100 align-items-center justify-content-between">
+                  <strong class="mb-1">{{noData}}</strong>
+                </div>
+              </a>
+            </div>
+          </div>
+
+<!-- Teacher -->
+          <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white" style="width: 380px; margin:auto" *ngIf="badteachername && teach" >
+            <div class="list-group list-group-flush border-bottom scrollarea">
+              <a  class="list-group-item list-group-item-action  py-3 lh-sm" aria-current="true" >
+                <div class="d-flex w-100 align-items-center justify-content-between">
+                  <strong class="mb-1">{{errordata}}</strong>
+                </div>
+              </a>
+            </div>
+          </div>
+
+
+         <br/>
+
+          <!-- <section class="vh-100" style="background-color: #f4f5f7;" id="profilescreen" *ngIf="profilescreen"> -->
+            <div class="container py-5 h-100" id="profilescreen" *ngIf="student">
+              <div class="row d-flex justify-content-center align-items-center h-100"  *ngIf="profilescreen">
+                <div class="col col-lg-6 mb-4 mb-lg-0">
+                  <div class="card mb-3" style="border-radius: .5rem;">
+                    <div class="row g-0">
+                      <div class="col-md-4 gradient-custom text-center text-white"
+                        style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
+                        <img [src]="imageUrl"
+                          alt="Avatar" class="img-fluid my-5"  id="profile" />
+                        <h5>{{profilefordisplay.name}}</h5>
+                        <p>Student</p>
+                        <span class="badge badge-success rounded-pill d-inline" id="active" *ngIf="profilefordisplay.persist">Active</span>
+                        <span class="badge badge-success rounded-pill d-inline" id="danger" *ngIf="!profilefordisplay.persist">Not Active</span>
+                        <i class="far fa-edit mb-5"></i>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="card-body p-4">
+                          <h6>Personal Information</h6>
+                          <hr class="mt-0 mb-4">
+                          <div class="row pt-1">
+                            <div class="col-6 mb-3">
+                              <h6>Gender</h6>
+                              <p class="text-muted">{{profilefordisplay.gender}}</p>
+                            </div>
+                            <div class="col-6 mb-3">
+                              <h6>Organisation</h6>
+                              <p class="text-muted">{{profilefordisplay.register.orgName}}</p>
+                            </div>
+                          </div>
+                          <h6>Identification</h6>
+                          <hr class="mt-0 mb-4">
+                          <div class="row pt-1">
+                            <div class="col-6 mb-3">
+                              <h6>Roll Number</h6>
+                              <p class="text-muted">{{profilefordisplay.roll_no}}</p>
+                            </div>
+                            <div class="col-6 mb-3">
+                              <h6>Class of Study</h6>
+                              <p class="text-muted">{{profilefordisplay.standard}} : {{profilefordisplay.section}}</p>
+                            </div>
+                          </div>
+                          <div class="d-flex justify-content-start">
+                            <a href="#!"><i class="fab fa-facebook-f fa-lg me-3"></i></a>
+                            <a href="#!"><i class="fab fa-twitter fa-lg me-3"></i></a>
+                            <a href="#!"><i class="fab fa-instagram fa-lg"></i></a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              
+              
+
+              <!-- Enter the remaining things that has to be added for checking the profile status -->
+              
+               <div class="container" *ngIf="student">
+                <br/>
+                <h3 *ngIf="!profilestatuslistsize" style="text-align:center;color:rgb(110, 108, 108);">Recently Added Profiles in {{user.orgName}}</h3>
+                 <br/>
+               </div>
+
+               <table class="table align-middle mb-0 bg-white tab" *ngIf="!profilestatuslistsize">
+                <thead class="">
+                  <tr>
+                    <th ># Name</th>
+                    <th>Roll Number</th>
+                    <th>Status</th>
+                    <th>Gender</th>
+                    <th>Class of Study</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let profile of profilestatuslist">
+                    <td>
+                      <div class="d-flex align-items-center">
+                        <div class="ms-3">
+                          <p class="fw-bold mb-1">{{profile.name}}</p>
+                          <p class="text-muted mb-0">Student</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <p class="fw-normal mb-1">{{profile.roll_no}}</p>
+                      <p class="text-muted mb-0">{{profile.register.orgName}}</p>
+                    </td>
+                    <td>
+                      <span class="badge badge-success rounded-pill d-inline" id="active" *ngIf="profile.persist">Active</span>
+                      <span class="badge badge-success rounded-pill d-inline" id="danger" *ngIf="!profile.persist">Not Active</span>
+                    </td>
+                    <td>{{profile.gender}}</td>
+                    <td>
+                      {{profile.standard}} : {{profile.section}}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <!-- Some Style to avoid visibility of footer -->
+              <br/>
+              <div class="card-group" id="card" *ngIf="student" >
+                <div class="card" id="cardrate">
+                  <div class="card-body" id="ratebody">
+                    <h3 class="card-title" style="text-align: center;">Organization</h3>
+                    <br/>
+                    <h3 class="card-title"  style="text-align: center;">{{this.user.orgName}}</h3>
+                  </div>
+                </div>
+                <div class="card" id="cardrate" >
+                  <div class="card-body" id="ratebody">
+                    <h3 class="card-title" style="text-align: center;">Total Students</h3>
+                    <br/>
+                    <h3 class="card-title"  style="text-align: center;">{{sizeoflist}}</h3>
+                    
+                  </div>
+                </div>
+                <div class="card" id="cardrate">
+                  <div class="card-body" id="ratebody">
+                    <h3 class="card-title" style="text-align: center;">Active Profiles</h3>
+                    <br/>
+                    <h3 class="card-title"  style="text-align: center;">{{getActiveOneList.length}}</h3>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          <!-- </section> -->
+
+
+          <!-- Teacher -->
+          <div class="container py-5 h-100" id="profilescreen1" *ngIf="teach">
+            <div class="row d-flex justify-content-center align-items-center h-100"  *ngIf="teacherscreen">
+              <div class="col col-lg-6 mb-4 mb-lg-0">
+                <div class="card mb-3" style="border-radius: .5rem;">
+                  <div class="row g-0">
+                    <div class="col-md-4 gradient-custom text-center text-white"
+                      style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
+                      <img [src]="imageTeacherUrl"
+                        alt="Avatar" class="img-fluid my-5"  id="profile" />
+                      <h5>{{displayteacherprofile.name}}</h5>
+                      <p>Teacher</p>
+                      <span class="badge badge-success rounded-pill d-inline" id="active" *ngIf="displayteacherprofile.persist">Active</span>
+                      <span class="badge badge-success rounded-pill d-inline" id="danger" *ngIf="!displayteacherprofile.persist">Not Active</span>
+                      <i class="far fa-edit mb-5"></i>
+                    </div>
+                    <div class="col-md-8">
+                      <div class="card-body p-4">
+                        <h6>Personal Information</h6>
+                        <hr class="mt-0 mb-4">
+                        <div class="row pt-1">
+                          <div class="col-6 mb-3">
+                            <h6>Gender</h6>
+                            <p class="text-muted">{{displayteacherprofile.gender}}</p>
+                          </div>
+                          <div class="col-6 mb-3">
+                            <h6>Organisation</h6>
+                            <p class="text-muted">{{displayteacherprofile.user.orgName}}</p>
+                          </div>
+                        </div>
+                        <h6>Identification</h6>
+                        <hr class="mt-0 mb-4">
+                        <div class="row pt-1">
+                          <div class="col-6 mb-3">
+                            <h6>Subject of Profession</h6>
+                            <p class="text-muted">{{displayteacherprofile.branch}}</p>
+                          </div>
+                          <div class="col-6 mb-3">
+                            <h6>Experience</h6>
+                            <p class="text-muted">{{displayteacherprofile.experience}}</p>
+                          </div>
+                        </div>
+                        <div class="d-flex justify-content-start">
+                          <a href="#!"><i class="fab fa-facebook-f fa-lg me-3"></i></a>
+                          <a href="#!"><i class="fab fa-twitter fa-lg me-3"></i></a>
+                          <a href="#!"><i class="fab fa-instagram fa-lg"></i></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            
+            
+
+            <!-- Enter the remaining things that has to be added for checking the profile status -->
+            
+             <div class="container">
+              <br/>
+              <h3 *ngIf="!teacherListsize" style="text-align:center;color:rgb(110, 108, 108);">Recently Added Teacher Profiles in {{user.orgName}}</h3>
+               <br/>
+             </div>
+
+             <table class="table align-middle mb-0 bg-white tab" *ngIf="!teacherListsize">
+              <thead class="">
+                <tr>
+                  <th ># Name</th>
+                  <th>Subject of Profession</th>
+                  <th>Status</th>
+                  <th>Gender</th>
+                  <th>Experience</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let teacher of teacherList">
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <div class="ms-3">
+                        <p class="fw-bold mb-1">{{teacher.name}}</p>
+                        <p class="text-muted mb-0">Student</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <p class="fw-normal mb-1">{{teacher.branch}}</p>
+                    <p class="text-muted mb-0">{{teacher.user.orgName}}</p>
+                  </td>
+                  <td>
+                    <span class="badge badge-success rounded-pill d-inline" id="active" *ngIf="teacher.persist">Active</span>
+                    <span class="badge badge-success rounded-pill d-inline" id="danger" *ngIf="!teacher.persist">Not Active</span>
+                  </td>
+                  <td>{{teacher.gender}}</td>
+                  <td>
+                    {{teacher.experience}}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <!-- Some Style to avoid visibility of footer -->
+            <br/>
+            <div class="card-group" id="card" >
+              <div class="card" id="cardrate1">
+                <div class="card-body" id="ratebody">
+                  <h3 class="card-title" style="text-align: center;">Organization</h3>
+                  <br/>
+                  <h2 class="card-title"  style="text-align: center;">{{this.user.orgName}}</h2>
+                </div>
+              </div>
+              <div class="card" id="cardrate1" >
+                <div class="card-body" id="ratebody">
+                  <h3 class="card-title" style="text-align: center;">Total Teachers</h3>
+                  <br/>
+                  <h3 class="card-title"  style="text-align: center;">{{countTeacher}}</h3>
+                  
+                </div>
+              </div>
+              <div class="card" id="cardrate1">
+                <div class="card-body" id="ratebody">
+                  <h3 class="card-title" style="text-align: center;">Active Teachers</h3>
+                  <br/>
+                  <h3 class="card-title"  style="text-align: center;">{{teacherpersist}}</h3>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+    </div>
+
+    <br/>
+
+    
+
+    </body>
+
+
+
+<body class="bg-light status2" *ngIf="status2">
+<div class="container" >  
+  <main>
+    <div class="py-5 text-center">
+      <img class="d-block mx-auto mb-4" id="amg" src="/assets/amg.png" alt="" width="140" height="70">
+      <h2>Add Student Profile</h2>
+      <!-- <p class="lead">Below is an example form built entirely with Bootstrap’s form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p> -->
+    </div>
+
+    <div class="row g-5">
+     
+      <div class="col-md-7 col-lg-8">
+        
+        
+          <div class="row g-3">
+            <div class="col-sm-6">
+              <label for="firstName" class="form-label">Name of the Student</label>
+              <input type="text" class="form-control" id="firstName" placeholder="Name" value="" required="" [(ngModel)]="profileStatus.name">
+              <div class="invalid-feedback">
+                Student Name is required.
+              </div>
+            </div>
+
+            <div class="col-md-5">
+                <label for="country" class="form-label">Gender</label>
+                <select class="form-select" id="country" required="" [(ngModel)]="profileStatus.gender">
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="others">Others</option>
+                </select>
+                
+              </div>
+           
+
+            <div class="col-12">
+              <label for="username" class="form-label">Roll Number</label>
+              <div class="input-group has-validation">
+                <input type="text" class="form-control" id="username" placeholder="Roll Number" required="" [(ngModel)]="profileStatus.roll_no" >
+              <div class="invalid-feedback">
+                  Roll Number is required.
+                </div>
+              </div>
+              </div>
+
+
+                
+              <div class="col-12">
+                <label for="username" class="form-label">Standard</label>
+                <div class="input-group has-validation">
+                  <input type="text" class="form-control" id="username" placeholder="Standard" required="" [(ngModel)]="profileStatus.standard">
+                <div class="invalid-feedback">
+                    Standard is required.
+                  </div>
+                </div>
+                </div>
+
+                <div class="col-12">
+                    <label for="username" class="form-label">Section</label>
+                    <div class="input-group has-validation">
+                      <input type="text" class="form-control" id="username" placeholder="Section" required="" [(ngModel)]="profileStatus.section">
+                    <div class="invalid-feedback">
+                        Section is required.
+                      </div>
+                    </div>
+                    </div>
+
+                  <br/>
+                    
+                  <div class="col-12">
+                    <label for="username" class="form-label">Upload Photo</label>
+                    <div class="input-group has-validation" name="file">
+                      <input type="file" class="form-control" id="file" name="file" placeholder="" required=""  (change)="onFileSelected($event)">
+                    <div class="invalid-feedback">
+                        Photo is required.
+                      </div>
+                    </div>
+                    </div>
+
+        </div>
+
+        <br/>
+
+          <button class="w-100 btn btn-info btn-lg" type="submit" (click)="savepostData()">Add Profile</button>
+     
+        <br/>
+        <br/>
+        <br/><br/>
+      </div>
+    </div>
+  </main>
+
+</div>
+
+
+    <script src="/docs/5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+  
+
+</body>
+
+
+<body class="bg-light status3" *ngIf="status3">
+    <div class="container" >  
+      <main>
+        <div class="py-5 text-center">
+          <img class="d-block mx-auto mb-4"  id="amg" src="/assets/amg.png" alt="" width="140" height="70">
+          <h2>Add Teacher Profile</h2>
+          <!-- <p class="lead">Below is an example form built entirely with Bootstrap’s form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p> -->
+        </div>
+    
+        <div class="row g-5">
+         
+          <div class="col-md-7 col-lg-8">
+            
+            
+              <div class="row g-3">
+                <div class="col-sm-6">
+                  <label for="firstName" class="form-label">Name</label>
+                  <input type="text" class="form-control" id="firstName" placeholder="Name" value="" required="" [(ngModel)]="teacher.name">
+                  <div class="invalid-feedback">
+                    Teacher Name is required.
+                  </div>
+                </div>
+                
+                
+                <div class="col-md-5">
+                    <label for="country" class="form-label">Gender</label>
+                    <select class="form-select" id="country" required="" [(ngModel)]="teacher.gender" >
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                      <option value="others">Others</option>
+                    </select>
+                  </div>
+               
+    
+                <div class="col-12">
+                  <label for="username" class="form-label">Branch of Subject</label>
+                  <div class="input-group has-validation">
+                    <input type="text" class="form-control" id="username" placeholder="Branch of Subject" required=""  [(ngModel)]="teacher.branch">
+                  <div class="invalid-feedback">
+                     Subject Branch is required.
+                    </div>
+                  </div>
+                  </div>
+    
+    
+                    
+                  <div class="col-12">
+                    <label for="username" class="form-label">Experience ( Starting from 0 )</label>
+                    <div class="input-group has-validation">
+                      <input type="number" class="form-control" id="username" placeholder="Experience" required="" [(ngModel)]="teacher.experience">
+                    <div class="invalid-feedback">
+                        Experience is required.
+                      </div>
+                    </div>
+                    </div>
+    
+                      <br/>
+                        
+                      <div class="col-12">
+                        <label for="username" class="form-label">Upload Photo</label>
+                        <div class="input-group has-validation" name="file">
+                          <input type="file" class="form-control" id="file" name="file" placeholder="" required="" (change)="onTeacherFileSelected($event)" >
+                        <div class="invalid-feedback">
+                            Photo is required.
+                          </div>
+                        </div>
+                        </div>
+    
+            </div>
+    
+            <br/>
+    
+              <button class="w-100 btn btn-success btn-lg" type="submit" (click)="postTeacherDetails()">Add  Teacher Profile</button>
+         
+            <br/>
+            <br/>
+            <br/><br/>
+          </div>
+        </div>
+      </main>
+    
+    </div>
+    
+    
+        <script src="/docs/5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+      
+    
+    </body>
+    
+    
+
+
+
+</html>
+
+
+<div class="container">
+    <footer class="py-3 my-4">
+      <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+        <li class="nav-item"><a href="/" class="nav-link px-2 text-muted">Home</a></li>
+        <li class="nav-item"><a href="/dashboard" class="nav-link px-2 text-muted">Dashboard</a></li>
+        <li class="nav-item"><a href="/profilestatus" class="nav-link px-2 text-muted">Profile Status</a></li>
+        <li class="nav-item"><a href="/updateprofile" class="nav-link px-2 text-muted">Update Profile</a></li>
+        <li class="nav-item"><a href="/" class="nav-link px-2 text-muted" (click)="logout()">Logout</a></li>
+      </ul>
+      <p class="text-center text-muted">A | M | S © 2023 </p>
+    </footer>
+  </div>

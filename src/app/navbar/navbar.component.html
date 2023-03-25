@@ -1,0 +1,22 @@
+<div class="container">
+    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+      <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+        <img src="assets/amg.png" height="70" width="130"/>
+        <span class="fs-4">Attendance Management System</span>
+      </a>
+
+      <ul class="nav nav-pills">
+        <li class="nav-item"><a href="/" class="nav-link" aria-current="page" id="1" >Home</a></li>
+        <li class="nav-item"><a href="/register" class="nav-link" id="2" *ngIf="!signed" [class.active]="shiftreg">Register</a></li>
+        <li class="nav-item"><a href="/dashboard" class="nav-link" id="4" *ngIf="signed" [class.active]="shift">Dashboard</a></li>
+        <li class="nav-item"><a href="/profilestatus" class="nav-link" id="5" *ngIf="profilelist" [class.active]="profile">Profile Status</a></li>
+        <li class="nav-item"><a href="/updateprofile" class="nav-link" id="6" *ngIf="update" [class.active]="updateprofile">Update Profile</a></li>
+        <li class="nav-item"><a href="/addclass" class="nav-link" id="7" *ngIf="addclass" [class.active]="addclassactive">Add Class</a></li>
+        <li class="nav-item"><a href="/updateclass" class="nav-link" id="8" *ngIf="updateclass" [class.active]="updateclassactive">Update Class</a></li>
+        <li class="nav-item"><a href="/displayclass" class="nav-link" id="9" *ngIf="displayclass" [class.active]="displayclassactive">Display Class</a></li>
+        <li class="nav-item"><a href="/" class="nav-link" id="5" (click)="logout()" *ngIf="signed">Logout</a></li>
+        <li class="nav-item"><a href="/about" class="nav-link" id="3" >About</a></li>
+      </ul>
+    </header>
+     
+  </div>

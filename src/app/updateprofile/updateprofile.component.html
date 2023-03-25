@@ -1,0 +1,290 @@
+<app-navbar></app-navbar>
+<br/>
+<body class="bg-light status1" id="status1" >
+    <!-- This is the area to create Body for the Check Profile Status URL -->
+    <div class="container">
+        <br/>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox1 stu" value="option1" [checked]="student" (change)="onStudent($event)">
+            <label class="form-check-label" for="inlineCheckbox1">Search By Student Profile</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox2 tea" value="option2" (change)="onTeacher($event)" [checked]="teach">
+            <label class="form-check-label" for="inlineCheckbox2">Search By Teacher Profile</label>
+          </div>
+          <br/><br/>
+
+
+        <div class="input-group mb-3" *ngIf="student">
+            <select class="form-select" class="input-group-text"  id="inputGroup-sizing-default" [(ngModel)]="studentname"> 
+                <option value="none" selected>Search By Student Profile Attribute</option>
+                <option value="name">Search By Name</option>
+                <option value="rollnumber">Search By Roll No</option>
+                <option value="standard">Search By Standard</option>
+              </select>
+            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" [(ngModel)]="names" (input)="onStudentProfile()">
+            <button class="btn btn-info" (click)="onStudentProfile()">Search</button>
+          </div>
+
+          <div class="input-group mb-3" *ngIf="teach">
+            <select class="form-select" class="input-group-text"  id="inputGroup-sizing-default" [(ngModel)]="teachernames"> 
+                <option value="" selected>Search By Teacher Profile Attribute</option>
+                <option value="teachername">Search By Teacher Name</option>
+                <option value="subject">Search By Teacher Subject</option>
+                <option value="experience">Search By Experience</option>
+              </select>
+            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" [(ngModel)]="teachname" (input)="teacherdataPost()">
+            <button class="btn btn-success" (click)="teacherdataPost()">Search</button>
+          </div>   
+          
+          
+          <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white" style="width: 380px; margin:auto" *ngIf="student" >
+            <div class="list-group list-group-flush border-bottom scrollarea">
+              <a  class="list-group-item list-group-item-action  py-3 lh-sm" aria-current="true" *ngFor="let profile of nameList" (click)="clickedProfile(profile)">
+                <div class="d-flex w-100 align-items-center justify-content-between">
+                  <strong class="mb-1">{{profile.name}}</strong>
+                  <small>{{profile.gender}}</small>
+                </div>
+                <div class="col-10 mb-1 small">Roll Number : {{profile.roll_no}}</div>
+                <div class="col-10 mb-1 small">Standard : {{profile.standard}}  Section : {{profile.section}}</div>
+              </a>
+            </div>
+          </div>
+
+          <!-- Teacher -->
+          <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white" style="width: 380px; margin:auto" *ngIf="teach" >
+            <div class="list-group list-group-flush border-bottom scrollarea">
+              <a  class="list-group-item list-group-item-action  py-3 lh-sm" aria-current="true" *ngFor="let teacher of teacherdata" (click)="clickedTeacher(teacher)">
+                <div class="d-flex w-100 align-items-center justify-content-between">
+                  <strong class="mb-1">{{teacher.name}}</strong>
+                  <small>{{teacher.gender}}</small>
+                </div>
+                <div class="col-10 mb-1 small">Subject : {{teacher.branch}}</div>
+                <div class="col-10 mb-1 small">Experience : {{teacher.experience}}</div>
+              </a>
+            </div>
+          </div>
+        
+          <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white" style="width: 380px; margin:auto" *ngIf="badname && student" >
+            <div class="list-group list-group-flush border-bottom scrollarea">
+              <a  class="list-group-item list-group-item-action  py-3 lh-sm" aria-current="true" >
+                <div class="d-flex w-100 align-items-center justify-content-between">
+                  <strong class="mb-1">{{noData}}</strong>
+                </div>
+              </a>
+            </div>
+          </div>
+
+<!-- Teacher -->
+          <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white" style="width: 380px; margin:auto" *ngIf="badteachername && teach" >
+            <div class="list-group list-group-flush border-bottom scrollarea">
+              <a  class="list-group-item list-group-item-action  py-3 lh-sm" aria-current="true" >
+                <div class="d-flex w-100 align-items-center justify-content-between">
+                  <strong class="mb-1">{{errordata}}</strong>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <br/>
+
+
+         
+            <div class="container" id="formid" *ngIf="student">  
+              <main>
+                <div class="py-5 text-center">
+                  <img class="d-block mx-auto mb-4" id="amg" src="/assets/amg.png" alt="" width="140" height="70">
+                  <h2>Update/Edit Student Profile</h2>
+                  <!-- <p class="lead">Below is an example form built entirely with Bootstrap’s form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p> -->
+                </div>
+            
+                <div class="row g-5">
+                  <button  type="button" class="btn btn-danger" style="float:right;" (click)="leaveStudent()" *ngIf="pstudent">Leave Organisation</button>
+                  <div class="col-md-7 col-lg-8">
+                    
+                    
+                      <div class="row g-3" >
+                        <div class="col-sm-6">
+                          <label for="firstName" class="form-label">Name of the Student</label>
+                          <input type="text" class="form-control" id="firstName" placeholder="Name" [value]="updatedProfile.name" required="" [(ngModel)]="updatedProfile.name">
+                          <div class="invalid-feedback">
+                            Student Name is required.
+                          </div>
+                        </div>
+            
+                        <div class="col-md-5">
+                            <label for="country" class="form-label">Gender</label>
+                            <select class="form-select" id="country" required="" [(ngModel)]="updatedProfile.gender">                            
+                              <option value="Male">Male</option>
+                              <option value="Female">Female</option>
+                              <option value="others">Others</option>
+                            </select>
+                            
+                          </div>
+                       
+            
+                        <div class="col-12">
+                          <label for="username" class="form-label">Roll Number</label>
+                          <div class="input-group has-validation">
+                            <input type="text" class="form-control" id="username" placeholder="Roll Number" required=""  [value]="updatedProfile.roll_no" [(ngModel)]="updatedProfile.roll_no">
+                          <div class="invalid-feedback">
+                              Roll Number is required.
+                            </div>
+                          </div>
+                          </div>
+            
+            
+                            
+                          <div class="col-12">
+                            <label for="username" class="form-label">Standard</label>
+                            <div class="input-group has-validation">
+                              <input type="text" class="form-control" id="username" placeholder="Standard" required="" [value]="updatedProfile.standard" [(ngModel)]="updatedProfile.standard">
+                            <div class="invalid-feedback">
+                                Standard is required.
+                              </div>
+                            </div>
+                            </div>
+            
+                            <div class="col-12">
+                                <label for="username" class="form-label">Section</label>
+                                <div class="input-group has-validation">
+                                  <input type="text" class="form-control" id="username" placeholder="Section" required="" [value]="updatedProfile.section" [(ngModel)]="updatedProfile.section">
+                                <div class="invalid-feedback">
+                                    Section is required.
+                                  </div>
+                                </div>
+                                </div>
+            
+                              <br/>
+                                
+                              <div class="col-12">
+                                <label for="username" class="form-label">Upload Photo</label>
+                                <div class="input-group has-validation" name="file">
+                                  <input type="file" class="form-control" id="file" name="file"  required=""  (change)="onupdatedEvent($event)" placeholder="File">
+                                  
+                                <div class="invalid-feedback">
+                                    Photo is required.
+                                  </div>
+                                </div>
+                                </div>
+            
+                    </div>
+            
+                    <br/>
+            
+                      <button class="w-100 btn btn-info btn-lg" type="submit" (click)="clickUpdatedProfile()">Update Student Profile</button>
+                      <!-- (click)="savepostData()" -->
+                 
+                    <br/>
+                    <br/>
+                    <br/><br/>
+                  </div>
+                </div>
+              </main>
+            
+            </div>
+
+
+
+            <div class="container" *ngIf="teach">  
+                <main>
+                  <div class="py-5 text-center">
+                    <img class="d-block mx-auto mb-4"  id="amg" src="/assets/amg.png" alt="" width="140" height="70">
+                    <h2>Edit/Update Teacher Profile</h2>
+                    <!-- <p class="lead">Below is an example form built entirely with Bootstrap’s form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p> -->
+                  </div>
+              
+                  
+                  <div class="row g-5" >
+                    <button  type="button" class="btn btn-danger" style="float:right;" (click)="leaveTeacher()" *ngIf="this.pteacher">Leave Organisation</button>
+                    <div class="col-md-7 col-lg-8" style="float:left;">
+                      
+                      
+                        <div class="row g-3" >
+                          <div class="col-sm-6">
+                            <label for="firstName" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="firstName" placeholder="Name" [value]="teacherprofile.name" required="" [(ngModel)]="teacherprofile.name">
+                            <div class="invalid-feedback">
+                              Teacher Name is required.
+                            </div>
+                          </div>
+                          
+                          
+                          <div class="col-md-5">
+                              <label for="country" class="form-label">Gender</label>
+                              <select class="form-select" id="country" required=""  [(ngModel)]="teacherprofile.gender">
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Others">Others</option>
+                              </select>
+
+                            </div>
+                         
+              
+                          <div class="col-12">
+                            <label for="username" class="form-label">Branch of Subject</label>
+                            <div class="input-group has-validation">
+                              <input type="text" class="form-control" id="username" placeholder="Branch of Subject" required="" [(ngModel)]="teacherprofile.branch" [value]="teacherprofile.branch">
+                            <div class="invalid-feedback">
+                               Subject Branch is required.
+                              </div>
+                            </div>
+                            </div>
+              
+              
+                              
+                            <div class="col-12">
+                              <label for="username" class="form-label">Experience ( Starting from 0 )</label>
+                              <div class="input-group has-validation">
+                                <input type="number" class="form-control" id="username" placeholder="Experience" required="" [(ngModel)]="teacherprofile.experience" [value]="teacherprofile.experience">
+                              <div class="invalid-feedback">
+                                  Experience is required.
+                                </div>
+                              </div>
+                              </div>
+              
+                                <br/>
+                                  
+                                <div class="col-12">
+                                  <label for="username" class="form-label">Upload Photo</label>
+                                  <div class="input-group has-validation" name="file">
+                                    <input type="file" class="form-control" id="file" name="file" placeholder="" required=""  (change)="onUpdateTeacher($event)">
+                                  <div class="invalid-feedback">
+                                      Photo is required.
+                                    </div>
+                                  </div>
+                                  </div>
+              
+                      </div>
+              
+                      <br/>
+              
+                        <button class="w-100 btn btn-success btn-lg" type="submit" (click)="clickedTeacherProfile()">Update Teacher Profile</button>
+                   
+                      <br/>
+                      <br/>
+                      <br/><br/>
+                    </div>
+                  </div>
+                </main>
+              
+              </div>
+            
+            
+                <script src="/docs/5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+              
+</div>
+</body>
+<!--Footer-->
+<div class="container">
+    <footer class="py-3 my-4">
+      <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+        <li class="nav-item"><a href="/" class="nav-link px-2 text-muted">Home</a></li>
+        <li class="nav-item"><a href="/dashboard" class="nav-link px-2 text-muted">Dashboard</a></li>
+        <li class="nav-item"><a href="/profilestatus" class="nav-link px-2 text-muted">Profile Status</a></li>
+        <li class="nav-item"><a href="/updateprofile" class="nav-link px-2 text-muted">Update Profile</a></li>
+        <li class="nav-item"><a href="/" class="nav-link px-2 text-muted" (click)="logout()">Logout</a></li>
+      </ul>
+      <p class="text-center text-muted">A | M | S © 2023 </p>
+    </footer>
+  </div>
